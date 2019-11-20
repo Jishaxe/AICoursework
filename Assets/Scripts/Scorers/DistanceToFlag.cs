@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Actions
+namespace Assets.Scripts.Scorers
 {
-    [Serializable]
-    public class DoNothing : UtilityAction
+    public class DistanceToFlag : Scorer
     {
-        public override void Execute(Agent agent, World world, float executionTime)
+        public override float Evaluate(Agent agent, World world)
         {
             throw new NotImplementedException();
         }

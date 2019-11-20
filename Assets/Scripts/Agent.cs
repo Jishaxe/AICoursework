@@ -17,7 +17,8 @@ public class Agent : MonoBehaviour
     public Text nameText;
     public Text actionText;
 
-    public Action nextAction;
+    public UtilityAIModel model;
+    public UtilityAction nextAction;
 
     public void Start()
     {
@@ -26,9 +27,9 @@ public class Agent : MonoBehaviour
 
     public void ChooseAction(World world)
     {
-        MoveTowards action = new MoveTowards();
-        action.target = new Vector3(0, 0, 15);
-        nextAction = action;
+        EvaluatedActionWithScore[] evaluatedActions = model.EvaluateActions(this, world);
+        
+        nextAction = evaluatedActions[0].action;
 
         actionText.text = nextAction.ToString();
     }
