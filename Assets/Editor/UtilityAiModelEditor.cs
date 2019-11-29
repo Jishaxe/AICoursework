@@ -76,21 +76,36 @@ public class UtilityAiModelEditor : Editor
 
                     string typeName = scorerPickerOptions[chosenScorerPickerIndex];
 
+                    DestroyImmediate(scorer.scorer, true);
                     // dynamically instance the type chosen
                     scorer.scorer = (Scorer)ScriptableObject.CreateInstance(typeName);// (UtilityAction)Activator.CreateInstance(newActionType);
+                    AssetDatabase.AddObjectToAsset(scorer.scorer, model);
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
                 }
 
 
                 EditorGUILayout.Space();
             }
 
-            if (scorerToDelete != null) action.scorers.Remove(scorerToDelete);
+            if (scorerToDelete != null)
+            {
+                DestroyImmediate(scorerToDelete.scorer, true);
+                action.scorers.Remove(scorerToDelete);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
 
             if (GUILayout.Button("Add new scorer to " + action.action.GetType().Name))
             {
-                ScorerAndTransformer newScorer = CreateInstance<ScorerAndTransformer>(); ;
-                newScorer.scorer = new HasFlag();
+                ScorerAndTransformer newScorer = new ScorerAndTransformer();
+                newScorer.scorer = CreateInstance<HasFlag>();
                 action.scorers.Add(newScorer);
+
+                //AssetDatabase.AddObjectToAsset(newScorer, model);
+                AssetDatabase.AddObjectToAsset(newScorer.scorer, model);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
             }
 
             if (GUILayout.Button("Delete " + action.action.GetType().Name)) actionToDelete = action;
@@ -101,26 +116,40 @@ public class UtilityAiModelEditor : Editor
             {
 
                 string typeName = actionPickerOptions[chosenActionPickerIndex];
-
+                DestroyImmediate(action.action, true);
                 // dynamically instance the type chosen
                 action.action = (UtilityAction)ScriptableObject.CreateInstance(typeName);// (UtilityAction)Activator.CreateInstance(newActionType);
+               
+                AssetDatabase.AddObjectToAsset(action.action, model);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
             }
         }
 
-        if (actionToDelete != null) model.actions.Remove(actionToDelete);
+        if (actionToDelete != null)
+        {
+            DestroyImmediate(actionToDelete.action, true);
+            model.actions.Remove(actionToDelete);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
 
         if (GUILayout.Button("Add new action"))
         {
-            ActionAndScorers newAction = CreateInstance<ActionAndScorers>();
-            newAction.action = new DoNothing();
+            ActionAndScorers newAction = new ActionAndScorers();
+            newAction.action = CreateInstance<DoNothing>();
+
             model.actions.Add(newAction);
+            
+
+            //AssetDatabase.AddObjectToAsset(newAction, model);
+            AssetDatabase.AddObjectToAsset(newAction.action, model);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
         }
 
-        if (GUI.changed)
-        {
-            EditorUtility.SetDirty(model);//
-            AssetDatabase.SaveAssets();
-        }
+        EditorUtility.SetDirty(model); //
         //serializedObject.ApplyModifiedProperties();
     }
 }

@@ -9,7 +9,8 @@ using UnityEngine;
 
 // Holds a Scorer and a way to transform the Scorer result. For now, it is just multiplied by a scalar.
 [Serializable]
-public class ScorerAndTransformer: ScriptableObject {
+public class ScorerAndTransformer
+{
     public Scorer scorer;
     public float multiplier = 1f;
 
@@ -22,7 +23,7 @@ public class ScorerAndTransformer: ScriptableObject {
 }
 
 [Serializable]
-public class ActionAndScorers: ScriptableObject
+public class ActionAndScorers
 {
     public UtilityAction action;
 
@@ -44,7 +45,7 @@ public class ActionAndScorers: ScriptableObject
 }
 
 
-public class EvaluatedActionWithScore: ScriptableObject
+public class EvaluatedActionWithScore
 {
     public UtilityAction action;
     public float score;
@@ -52,7 +53,6 @@ public class EvaluatedActionWithScore: ScriptableObject
 
 
 [CreateAssetMenu(fileName = "New UtilityAIModel", menuName = "Utility AI Model")]
-[Serializable]
 public class UtilityAIModel : ScriptableObject
 {
     public static Type[] actionTypes =

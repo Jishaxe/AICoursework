@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Scorers
 {
-    [Serializable]
     public class HasFlag : Scorer
     {
         public override float Evaluate(Agent agent, World world)

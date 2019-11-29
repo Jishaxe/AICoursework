@@ -7,9 +7,8 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    [Serializable]
-    public abstract class Scorer: ScriptableObject
+    public class Scorer: ScriptableObject
     {
-        public abstract float Evaluate(Agent agent, World world);
+        public virtual float Evaluate(Agent agent, World world) { throw new NotImplementedException();  }
     }
 }

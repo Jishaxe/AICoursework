@@ -8,10 +8,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Actions
 {
-    [Serializable]
-    public abstract class UtilityAction: ScriptableObject
+    public class UtilityAction: ScriptableObject
     {
-        public abstract void Execute(Agent agent, World world, float executionTime);
+        public virtual void Execute(Agent agent, World world, float executionTime) { throw new NotImplementedException(); }
 
         // Lerps in a given direction across executionTime, also facing the agent in that direction
         public static IEnumerator MoveInDirection(Agent agent, Vector3 direction, float executionTime)
