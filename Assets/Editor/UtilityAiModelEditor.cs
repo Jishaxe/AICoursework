@@ -34,13 +34,18 @@ public class UtilityAiModelEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        serializedObject.Update();
+        //serializedObject.Update();
         ActionAndScorers actionToDelete = null;
 
         // list all the actions
         foreach (ActionAndScorers action in model.actions)
         {
-            EditorGUILayout.LabelField(action.action.GetType().Name + " with " + action.scorers.Count + " scorers", EditorStyles.boldLabel);
+            if (action.action != null) { 
+                EditorGUILayout.LabelField(action.action.GetType().Name + " with " + action.scorers.Count + " scorers", EditorStyles.boldLabel);
+            } else {
+                EditorGUILayout.LabelField("Undefined action");
+                continue;//
+            }
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Action");
             int currentActionIndex = actionPickerOptions.IndexOf(action.action.GetType().Name);
@@ -52,7 +57,7 @@ public class UtilityAiModelEditor : Editor
             foreach (ScorerAndTransformer scorer in action.scorers)
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Scorer");
+                EditorGUILayout.LabelField("Scorer");//
 
                 int currentScorerIndex = scorerPickerOptions.IndexOf(scorer.scorer.GetType().Name);
                 int chosenScorerPickerIndex = EditorGUILayout.Popup(currentScorerIndex, scorerPickerOptions.ToArray());
@@ -83,7 +88,7 @@ public class UtilityAiModelEditor : Editor
 
             if (GUILayout.Button("Add new scorer to " + action.action.GetType().Name))
             {
-                ScorerAndTransformer newScorer = new ScorerAndTransformer();
+                ScorerAndTransformer newScorer = CreateInstance<ScorerAndTransformer>(); ;
                 newScorer.scorer = new HasFlag();
                 action.scorers.Add(newScorer);
             }
@@ -106,11 +111,16 @@ public class UtilityAiModelEditor : Editor
 
         if (GUILayout.Button("Add new action"))
         {
-            ActionAndScorers newAction = new ActionAndScorers();
+            ActionAndScorers newAction = CreateInstance<ActionAndScorers>();
             newAction.action = new DoNothing();
             model.actions.Add(newAction);
         }
-        
-        EditorUtility.SetDirty(model);
+
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(model);//
+            AssetDatabase.SaveAssets();
+        }
+        //serializedObject.ApplyModifiedProperties();
     }
 }

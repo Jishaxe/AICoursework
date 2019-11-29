@@ -42,7 +42,6 @@ namespace Assets.Scripts.Actions
                 yield return null;
             }
 
-            Debug.Log("aaa");
             agent.transform.position = endPosition;
         }
     }

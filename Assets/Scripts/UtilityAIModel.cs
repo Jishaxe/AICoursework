@@ -9,19 +9,20 @@ using UnityEngine;
 
 // Holds a Scorer and a way to transform the Scorer result. For now, it is just multiplied by a scalar.
 [Serializable]
-public class ScorerAndTransformer {
+public class ScorerAndTransformer: ScriptableObject {
     public Scorer scorer;
     public float multiplier = 1f;
 
     // Evaluate the Scorer then multiply the result by the multiplier
     public float EvaluateAndTransform(Agent agent, World world)
     {
+        //aa
         return scorer.Evaluate(agent, world) * multiplier;
     }
 }
 
 [Serializable]
-public class ActionAndScorers
+public class ActionAndScorers: ScriptableObject
 {
     public UtilityAction action;
 
@@ -42,7 +43,8 @@ public class ActionAndScorers
     }
 }
 
-public class EvaluatedActionWithScore
+
+public class EvaluatedActionWithScore: ScriptableObject
 {
     public UtilityAction action;
     public float score;
