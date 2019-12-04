@@ -20,14 +20,38 @@ public class World : MonoBehaviour
     public bool playing = false;
 
 
-    // The red base - go back here with the flag
+    // Bases and flag
     public GameObject redBase;
+    public GameObject blueBase;
     public GameObject flag;
+
+    // The agent that currently has the flag
+    public Agent agentWithFlag = null;
+
+    public Vector3 flagResetPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Agent")) agents.Add(gameObject.GetComponent<Agent>());
+        flagResetPosition = flag.transform.position;
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Agent"))
+        {
+            Agent agent = gameObject.GetComponent<Agent>();
+            agent.thisBase = GetBase(agent.team);
+            agents.Add(agent);
+        }
+    }
+
+    public void ResetFlag()
+    {
+        if (agentWithFlag != null)
+        {
+            agentWithFlag.hasFlag = false;
+            flag.transform.SetParent(null);
+            agentWithFlag = null;
+        }
+
+        flag.transform.position = flagResetPosition;
     }
 
     public void Update()
@@ -46,6 +70,13 @@ public class World : MonoBehaviour
         tick++;
         ChooseActions();
         ExecuteActions();
+    }
+
+    public GameObject GetBase(Team team)
+    {
+        if (team == Team.RED) return redBase;
+        if (team == Team.BLUE) return blueBase;
+        return null;
     }
 
     public void ChooseActions()

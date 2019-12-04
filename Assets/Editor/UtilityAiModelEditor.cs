@@ -68,6 +68,11 @@ public class UtilityAiModelEditor : Editor
                 scorer.multiplier = EditorGUILayout.FloatField(scorer.multiplier);
                 EditorGUILayout.EndHorizontal();
 
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Negate");
+                scorer.negate = EditorGUILayout.Toggle(scorer.negate);
+                EditorGUILayout.EndHorizontal();
+
                 if (GUILayout.Button("Delete " + scorer.scorer.GetType().Name)) scorerToDelete = scorer;
 
                 // if the user selected a new action

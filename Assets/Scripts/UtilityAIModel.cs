@@ -13,12 +13,14 @@ public class ScorerAndTransformer
 {
     public Scorer scorer;
     public float multiplier = 1f;
+    public bool negate = false;
 
     // Evaluate the Scorer then multiply the result by the multiplier
     public float EvaluateAndTransform(Agent agent, World world)
     {
-        //aa
-        return scorer.Evaluate(agent, world) * multiplier;
+        float result = scorer.Evaluate(agent, world) * multiplier;
+        if (negate) result *= -1;
+        return result;
     }
 }
 
@@ -31,23 +33,40 @@ public class ActionAndScorers
     public List<ScorerAndTransformer> scorers = new List<ScorerAndTransformer>();
 
     // Evaluates and averages all the score results after they're transformed
-    public float Evaluate(Agent agent, World world)
+    public EvaluatedActionWithScore Evaluate(Agent agent, World world)
     {
         float sum = 0;
 
+        List<EvaluatedScorerWithScore> evaledScorers = new List<EvaluatedScorerWithScore>();
+
         foreach (ScorerAndTransformer scorer in scorers)
         {
-            sum += scorer.EvaluateAndTransform(agent, world);
+            EvaluatedScorerWithScore scorerResult = new EvaluatedScorerWithScore();
+            scorerResult.scorer = scorer;
+            scorerResult.score = scorer.EvaluateAndTransform(agent, world);
+            sum += scorerResult.score;
+            evaledScorers.Add(scorerResult);
         }
 
-        return sum / scorers.Count;
+        EvaluatedActionWithScore result = new EvaluatedActionWithScore();
+        result.action = action;
+        result.score = sum / scorers.Count;
+        result.scorers = evaledScorers.ToArray();
+
+        return result;
     }
 }
 
+public class EvaluatedScorerWithScore
+{
+    public ScorerAndTransformer scorer;
+    public float score;
+}
 
 public class EvaluatedActionWithScore
 {
     public UtilityAction action;
+    public EvaluatedScorerWithScore[] scorers;
     public float score;
 }
 
@@ -58,7 +77,8 @@ public class UtilityAIModel : ScriptableObject
     public static Type[] actionTypes =
     {
         typeof(DoNothing),
-        typeof(MoveTowards)
+        typeof(MoveTowardsAndGetFlag),
+        typeof(ReturnFlagToBase)
     };
 
     public static Type[] scorerTypes =
@@ -76,14 +96,11 @@ public class UtilityAIModel : ScriptableObject
 
         foreach (ActionAndScorers action in actions)
         {
-            float score = action.Evaluate(agent, world);
-            EvaluatedActionWithScore evaled = new EvaluatedActionWithScore();
-            evaled.score = score;
-            evaled.action = action.action;
+            EvaluatedActionWithScore evaled = action.Evaluate(agent, world);
             result.Add(evaled);
         }
 
-        result = result.OrderBy(o => o.score).ToList();
+        result = result.OrderByDescending(o => o.score).ToList();
         return result.ToArray();
     }
 }

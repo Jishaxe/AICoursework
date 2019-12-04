@@ -104,7 +104,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145467744}
-  m_LocalRotation: {x: -0.048394077, y: 0.9286189, z: -0.13068855, w: -0.34386837}
+  m_LocalRotation: {x: -0.023565397, y: 0.96683407, z: -0.09689774, w: -0.23513266}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.004464233, y: 0.004464233, z: 0.004464233}
   m_Children:
@@ -341,6 +341,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2445474786748543123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7157958757238542946}
+  m_Layer: 0
+  m_Name: Flag hold point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7157958757238542946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445474786748543123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8955444001463613535}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8014937795426655863
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +482,7 @@ Transform:
   - {fileID: 4121519413631195177}
   - {fileID: 145467745}
   - {fileID: 359358215917505065}
+  - {fileID: 7157958757238542946}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -472,8 +503,11 @@ MonoBehaviour:
   movementInATick: 1
   nameText: {fileID: 20661378}
   actionText: {fileID: 445497624}
-  model: {fileID: 0}
+  model: {fileID: 11400000, guid: c215b52e1f166384085e2aec213165b0, type: 2}
   nextAction: {fileID: 0}
+  closenessBeforePickingUpFlag: 1
+  flagHoldPoint: {fileID: 7157958757238542946}
+  hasFlag: 0
 --- !u!114 &773037450227508861
 MonoBehaviour:
   m_ObjectHideFlags: 0

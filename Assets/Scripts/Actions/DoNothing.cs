@@ -10,7 +10,7 @@ namespace Assets.Scripts.Actions
     {
         public override void Execute(Agent agent, World world, float executionTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6325461429697934157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8e9b6f51e8f704f838efca4ac23109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-80455448466370259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4183bd4b693c15478d6acc3f46238a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae6d4ffbfdf5fc4abc5ac21238ebf62, type: 3}
+  m_Name: JustGetFlag
+  m_EditorClassIdentifier: 
+  actions:
+  - action: {fileID: -6325461429697934157}
+    scorers:
+    - scorer: {fileID: -80455448466370259}
+      multiplier: 1
+      negate: 1
+  - action: {fileID: 83990895457755562}
+    scorers:
+    - scorer: {fileID: 7367739404541474535}
+      multiplier: 1
+      negate: 0
+--- !u!114 &83990895457755562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9476a502b543075468e1206e677eb627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisBase: {fileID: 0}
+--- !u!114 &7367739404541474535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4183bd4b693c15478d6acc3f46238a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
