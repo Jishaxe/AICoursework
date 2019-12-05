@@ -78,7 +78,8 @@ public class UtilityAIModel : ScriptableObject
     {
         typeof(DoNothing),
         typeof(MoveTowardsAndGetFlag),
-        typeof(ReturnFlagToBase)
+        typeof(ReturnFlagToBase),
+        typeof(ShootAtNearestEnemy)
     };
 
     public static Type[] scorerTypes =

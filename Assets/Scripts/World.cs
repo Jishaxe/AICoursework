@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,6 +73,27 @@ public class World : MonoBehaviour
         ExecuteActions();
     }
 
+
+    public Agent GetNearestEnemyTo(Agent agent)
+    {
+        Agent result = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Agent possible in agents)
+        {
+            if (possible.team == agent.team) continue; // skip members of same team
+            if (possible.health <= 0) continue; // ignore dead agents
+
+            if ((possible.transform.position - agent.transform.position).magnitude < closestDistance)
+            {
+                result = possible;
+                closestDistance = (possible.transform.position - agent.transform.position).magnitude;
+            }
+        }
+
+        return result;
+    }
+
     public GameObject GetBase(Team team)
     {
         if (team == Team.RED) return redBase;
@@ -83,6 +105,7 @@ public class World : MonoBehaviour
     {
         foreach (Agent agent in agents)
         {
+            if (agent.health <= 0) continue;
             agent.ChooseAction(this);
         }
     }
@@ -91,6 +114,7 @@ public class World : MonoBehaviour
     {
         foreach (Agent agent in agents)
         {
+            if (agent.health <= 0) continue;
             agent.nextAction.Execute(agent, this, actionExecutionTime);
         }
     }
