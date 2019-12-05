@@ -11,7 +11,7 @@ namespace Assets.Scripts.Actions
             // tries to get the flag if it's near enough
             agent.GetFlag(world);
 
-            world.StartCoroutine(MoveInDirection(agent, direction, t));
+            if (!agent.hasFlag) agent.MoveInDirection(world, direction, t);
         }
 
         public override string ToString()

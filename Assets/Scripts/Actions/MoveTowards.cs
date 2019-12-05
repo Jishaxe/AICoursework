@@ -15,7 +15,7 @@ namespace Assets.Scripts.Actions
         public override void Execute(Agent agent, World world, float t) {
             Vector3 direction = target - agent.transform.position;
 
-            world.StartCoroutine(MoveInDirection(agent, direction, t));
+            //world.StartCoroutine(MoveInDirection(agent, direction, t));
         }
 
         public override string ToString()

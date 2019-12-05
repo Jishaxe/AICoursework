@@ -104,7 +104,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145467744}
-  m_LocalRotation: {x: -0.048394077, y: 0.9286189, z: -0.13068855, w: -0.34386837}
+  m_LocalRotation: {x: -0.132396, y: 0.7157361, z: -0.14122166, w: -0.67100644}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.004464233, y: 0.004464233, z: 0.004464233}
   m_Children:
@@ -299,6 +299,7 @@ RectTransform:
   - {fileID: 445497623}
   - {fileID: 1700478566468153437}
   - {fileID: 2321416152555746095}
+  - {fileID: 7443111640136426423}
   m_Father: {fileID: 145467745}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -403,6 +404,83 @@ Transform:
   m_Father: {fileID: 8955444001463613535}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4067553974059106781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7443111640136426423}
+  - component: {fileID: 6584838048077705865}
+  - component: {fileID: 2964697873450910218}
+  m_Layer: 0
+  m_Name: Ammo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7443111640136426423
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4067553974059106781}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalScale: {x: 0.999052, y: 0.9990518, z: 0.9990521}
+  m_Children: []
+  m_Father: {fileID: 757476441}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -32, y: -144}
+  m_SizeDelta: {x: 0, y: 336.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6584838048077705865
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4067553974059106781}
+  m_CullTransparentMesh: 0
+--- !u!114 &2964697873450910218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4067553974059106781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 195
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 5
+    m_MaxSize: 243
+    m_Alignment: 8
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 5/5
 --- !u!1 &7451092308148232779
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,9 +763,10 @@ MonoBehaviour:
   movementInATick: 1
   nameText: {fileID: 20661378}
   actionText: {fileID: 445497624}
+  ammoText: {fileID: 2964697873450910218}
   model: {fileID: 11400000, guid: c215b52e1f166384085e2aec213165b0, type: 2}
   nextAction: {fileID: 0}
-  closenessBeforePickingUpFlag: 1
+  interactionDistance: 3
   flagHoldPoint: {fileID: 7157958757238542946}
   probablityOfHittingEnemy: 0.2
   bulletPrefab: {fileID: 7813766519197922423, guid: 30a778a76ef4f1e4396dd1030b238865,
@@ -697,13 +776,18 @@ MonoBehaviour:
   meshRenderer: {fileID: 6169422374413451944}
   missOffset: 5
   hasFlag: 0
+  isInCover: 0
+  isBeingFiredAt: 0
   healthBarImage: {fileID: 5471282144032296262}
   maxHealth: 1
   health: 1
   damageFromBullet: 0.1
+  maxBullets: 5
+  bullets: 5
   canvas: {fileID: 145467744}
   sphereCollider: {fileID: 8159119350546037848}
   rb: {fileID: 4565854632381534795}
+  coverHeight: -0.5
 --- !u!114 &773037450227508861
 MonoBehaviour:
   m_ObjectHideFlags: 0

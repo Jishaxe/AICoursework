@@ -8,6 +8,9 @@ public class World : MonoBehaviour
     // List of agents
     public List<Agent> agents;
 
+    // List  of cover
+    public List<Cover> cover;
+
     // Current tick amount
     public int tick = 0;
 
@@ -40,6 +43,11 @@ public class World : MonoBehaviour
             Agent agent = gameObject.GetComponent<Agent>();
             agent.thisBase = GetBase(agent.team);
             agents.Add(agent);
+        }
+
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Cover"))
+        {
+            cover.Add(gameObject.GetComponent<Cover>());
         }
     }
 
@@ -83,6 +91,26 @@ public class World : MonoBehaviour
         {
             if (possible.team == agent.team) continue; // skip members of same team
             if (possible.health <= 0) continue; // ignore dead agents
+
+            if ((possible.transform.position - agent.transform.position).magnitude < closestDistance)
+            {
+                result = possible;
+                closestDistance = (possible.transform.position - agent.transform.position).magnitude;
+            }
+        }
+
+        return result;
+    }
+
+
+    public Cover GetNearestCoverTo(Agent agent)
+    {
+        Cover result = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Cover possible in cover)
+        {
+            if (possible.agentInCover != null) continue; // cover already used by another agent
 
             if ((possible.transform.position - agent.transform.position).magnitude < closestDistance)
             {

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Actions
             // tries to drop the flag at base if it's near enough
             agent.DropFlagAtBase(world);
 
-            world.StartCoroutine(MoveInDirection(agent, direction, t));
+            agent.MoveInDirection(world, direction, t);
         }
 
         public override string ToString()

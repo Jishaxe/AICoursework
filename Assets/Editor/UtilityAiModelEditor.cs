@@ -73,6 +73,17 @@ public class UtilityAiModelEditor : Editor
                 scorer.negate = EditorGUILayout.Toggle(scorer.negate);
                 EditorGUILayout.EndHorizontal();
 
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Zero when negative");
+                scorer.zeroWhenNegative = EditorGUILayout.Toggle(scorer.zeroWhenNegative);
+                EditorGUILayout.EndHorizontal();
+
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Zero when positive");
+                scorer.zeroWhenPositive = EditorGUILayout.Toggle(scorer.zeroWhenPositive);
+                EditorGUILayout.EndHorizontal();
+
                 if (GUILayout.Button("Delete " + scorer.scorer.GetType().Name)) scorerToDelete = scorer;
 
                 // if the user selected a new action

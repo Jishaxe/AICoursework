@@ -14,12 +14,20 @@ public class ScorerAndTransformer
     public Scorer scorer;
     public float multiplier = 1f;
     public bool negate = false;
+    public bool zeroWhenNegative = false;
+    public bool zeroWhenPositive = false;
 
     // Evaluate the Scorer then multiply the result by the multiplier
     public float EvaluateAndTransform(Agent agent, World world)
     {
-        float result = scorer.Evaluate(agent, world) * multiplier;
-        if (negate) result *= -1;
+        float result = scorer.Evaluate(agent, world);
+        if (negate) result = 1 - result;
+
+
+        result *= multiplier;
+       
+        if (zeroWhenNegative && result < 0) result = 0;
+        if (zeroWhenPositive && result > 0) result = 0;
         return result;
     }
 }
@@ -50,7 +58,7 @@ public class ActionAndScorers
 
         EvaluatedActionWithScore result = new EvaluatedActionWithScore();
         result.action = action;
-        result.score = sum / scorers.Count;
+        result.score = sum;// / scorers.Count;
         result.scorers = evaledScorers.ToArray();
 
         return result;
@@ -79,13 +87,18 @@ public class UtilityAIModel : ScriptableObject
         typeof(DoNothing),
         typeof(MoveTowardsAndGetFlag),
         typeof(ReturnFlagToBase),
-        typeof(ShootAtNearestEnemy)
+        typeof(ShootAtNearestEnemy),
+        typeof(GetToCover),
+        typeof(Reload)
     };
 
     public static Type[] scorerTypes =
     {
         typeof(HasFlag),
-        typeof(DistanceToFlag)
+        typeof(DistanceToFlag),
+        typeof(HasAmmo),
+        typeof(IsInCover),
+        typeof(AmmoLeft)
     };
 
 

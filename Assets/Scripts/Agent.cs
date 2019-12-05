@@ -23,14 +23,15 @@ public class Agent : MonoBehaviour
     [Header("Text for the UI that pops up above tha player")]
     public Text nameText;
     public Text actionText;
+    public Text ammoText;
 
     [Header("Model to use")]
     public UtilityAIModel model;
     public UtilityAction nextAction;
     public EvaluatedActionWithScore[] lastEvaluatedActions;
 
-    [Header("How close this agent needs to be before they can pick up the flag")]
-    public float closenessBeforePickingUpFlag;
+    [Header("How close this agent needs to be to interact (pick up flag, enter cover, etc)")]
+    public float interactionDistance;
 
     [Header("Where this agent holds the flag")]
     public Transform flagHoldPoint;
@@ -54,23 +55,67 @@ public class Agent : MonoBehaviour
     public float missOffset;
 
     public bool hasFlag = false;
+    public bool isInCover = false;
+    public bool isBeingFiredAt = false;
+
+    Cover currentCover = null;
 
     [Header("Health bar")]
     public Image healthBarImage;
     public float maxHealth = 1f;
+
+    [Header("Current agent health")]
     public float health = 1f;
+
+    [Header("How much damage is taken by a bullet")]
     public float damageFromBullet;
+
+    [Header("How many bullets each agent can hold")]
+    public int maxBullets;
+
+    public int bullets;
+
     public GameObject canvas;
     public SphereCollider sphereCollider;
     public Rigidbody rb;
+
+    [Header("Height the agent should sit at when in cover")]
+    public float coverHeight;
+    float normalHeight;
 
     Coroutine hitFlashCoroutine;
 
     public void Start()
     {
         nameText.text = agentName;
+        normalHeight = transform.position.y;
+        ammoText.text = bullets + "/" + maxBullets;
     }
 
+    // enter cover if close enough
+    public void EnterCover(World world, Cover cover)
+    {
+        if (cover == null) return;
+        if (isInCover) return;
+        if (cover.agentInCover != null) return;
+
+        if ((cover.coverPoint.transform.position - transform.position).magnitude <= interactionDistance) {
+            isInCover = true;
+            currentCover = cover;
+            cover.agentInCover = this;
+            this.transform.position = new Vector3(cover.coverPoint.transform.position.x, coverHeight, cover.coverPoint.transform.position.z);
+        }
+    }
+
+    // leave cover if  in cover
+    public void LeaveCover()
+    {
+        if (!isInCover) return;
+        currentCover.agentInCover = null;
+        currentCover = null;
+        isInCover = false;
+        this.transform.position = new Vector3(transform.position.x, normalHeight, transform.position.z);
+    }
 
     // Picks up the flag if it's close enough to this agent
     // Sets the parent to this flagHoldPoint
@@ -80,7 +125,7 @@ public class Agent : MonoBehaviour
         if (this.hasFlag) return;
         if (world.agentWithFlag != null) return;
 
-        if ((world.flag.transform.position - this.transform.position).magnitude <= closenessBeforePickingUpFlag)
+        if ((world.flag.transform.position - this.transform.position).magnitude <= interactionDistance)
         {
             world.agentWithFlag = this;
             this.hasFlag = true;
@@ -88,13 +133,61 @@ public class Agent : MonoBehaviour
         }
     }
 
+    public void MoveInDirection(World world, Vector3 direction, float executionTime)
+    {
+        LeaveCover();
+        StartCoroutine(MoveInDirection(direction, executionTime));
+    }
+
+    // Lerps in a given direction across executionTime, also facing the agent in that direction
+    IEnumerator MoveInDirection(Vector3 direction, float executionTime)
+    {
+        if (direction.magnitude > 1f)
+        {
+            direction.Normalize();
+            direction *= movementInATick;
+        }
+
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = startPosition + direction;
+
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = Quaternion.LookRotation(direction);
+
+        float time = 0f;
+
+        while (time < executionTime)
+        {
+            Vector3 lerpedPosition = Vector3.Lerp(startPosition, endPosition, time / executionTime);
+            Quaternion lerpedRotation = Quaternion.Lerp(startRotation, endRotation, time / executionTime);
+
+            transform.position = lerpedPosition;
+            transform.rotation = lerpedRotation;
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        //transform.position = endPosition;
+    }
+
     public void FireAtAgent(World world, Agent target, float executionTime)
     {
         if (target == null) return;
+        if (bullets <= 0) return;
+
+        bullets--;
+        ammoText.text = bullets + "/" + maxBullets;
+
+        LeaveCover();
+
+        target.isBeingFiredAt = true;
 
         this.transform.rotation = Quaternion.LookRotation(target.transform.position - this.transform.position);
 
         bool hasHit = Random.Range(0f, 1f) <= probablityOfHittingEnemy;
+
+        if (target.isInCover) hasHit = false; // never hit when target is being fired at
         Vector3 offset = Vector3.zero;
 
         if (!hasHit) offset = new Vector3(Random.Range(-missOffset, missOffset), Random.Range(-missOffset, missOffset), Random.Range(-missOffset, missOffset));
@@ -104,6 +197,14 @@ public class Agent : MonoBehaviour
 
 
         StartCoroutine(FireBulletTowardsAgent(world, bullet, target, offset, executionTime));
+    }
+
+    public void Reload()
+    {
+        if (bullets == maxBullets) return;
+
+        bullets++;
+        ammoText.text = bullets + "/" + maxBullets;
     }
 
     IEnumerator FireBulletTowardsAgent(World world, GameObject bullet, Agent target, Vector3 offset, float executionTime)
@@ -135,7 +236,7 @@ public class Agent : MonoBehaviour
     {
         if (!this.hasFlag) return;
 
-        if ((thisBase.transform.position - this.transform.position).magnitude <= closenessBeforePickingUpFlag)
+        if ((thisBase.transform.position - this.transform.position).magnitude <= interactionDistance)
         {
             world.ResetFlag();
         }
@@ -143,6 +244,7 @@ public class Agent : MonoBehaviour
 
     public void Die(World world)
     {
+        LeaveCover();
         canvas.SetActive(false);
         sphereCollider.enabled = false;
         rb.isKinematic = false;
@@ -199,5 +301,7 @@ public class Agent : MonoBehaviour
         lastEvaluatedActions = evaluatedActions;
 
         OnEvaluatedActions?.Invoke(evaluatedActions);
+
+        isBeingFiredAt = false;
     }
 }
