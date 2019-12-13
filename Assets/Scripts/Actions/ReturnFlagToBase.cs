@@ -13,10 +13,5 @@ namespace Assets.Scripts.Actions
 
             agent.MoveInDirection(world, direction, t);
         }
-
-        public override string ToString()
-        {
-            return "ReturnFlagToBase";
-        }
     }
 }

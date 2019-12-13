@@ -17,10 +17,5 @@ namespace Assets.Scripts.Actions
 
             if (!agent.isInCover) agent.MoveInDirection(world, direction, t);
         }
-
-        public override string ToString()
-        {
-            return "GetToCover";
-        }
     }
 }

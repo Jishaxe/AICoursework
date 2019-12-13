@@ -9,10 +9,5 @@ namespace Assets.Scripts.Actions
             Agent target = world.GetNearestEnemyTo(agent);
             agent.FireAtAgent(world, target, t);
         }
-
-        public override string ToString()
-        {
-            return "ShootAtNearestEnemy";
-        }
     }
 }

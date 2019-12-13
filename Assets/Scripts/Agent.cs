@@ -142,6 +142,7 @@ public class Agent : MonoBehaviour
     // Lerps in a given direction across executionTime, also facing the agent in that direction
     IEnumerator MoveInDirection(Vector3 direction, float executionTime)
     {
+        direction.y = 0;
         if (direction.magnitude > 1f)
         {
             direction.Normalize();
@@ -292,11 +293,13 @@ public class Agent : MonoBehaviour
 
     public void ChooseAction(World world)
     {
-        EvaluatedActionWithScore[] evaluatedActions = model.EvaluateActions(this, world);
+        string lastActionName = "";
+        if (nextAction != null) lastActionName = lastActionName.GetType().Name;
+        EvaluatedActionWithScore[] evaluatedActions = model.EvaluateActions(this, world, lastActionName);
         
         nextAction = evaluatedActions[0].action;
 
-        actionText.text = nextAction.ToString();
+        actionText.text = nextAction.GetType().Name;
 
         lastEvaluatedActions = evaluatedActions;
 

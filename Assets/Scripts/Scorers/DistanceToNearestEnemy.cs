@@ -2,19 +2,18 @@
 
 namespace Assets.Scripts.Scorers
 {
-    public class DistanceToFlag : Scorer
+    public class DistanceToNearestEnemy : Scorer
     {
-        const int minDistance = 0;
+        const int minDistance = 10;
         const int maxDistance = 30;
 
         public override float Evaluate(Agent agent, World world)
         {
-            GameObject flag = world.flag;
+            Agent nearestEnemy = world.GetNearestEnemyTo(agent);
 
-            Vector3 direction = flag.transform.position - agent.transform.position;
+            Vector3 direction = nearestEnemy.transform.position - agent.transform.position;
 
             float normalizedDistance = (direction.magnitude - minDistance) / (maxDistance - minDistance);
-
             return normalizedDistance;
         }
     }

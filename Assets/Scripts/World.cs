@@ -11,6 +11,8 @@ public class World : MonoBehaviour
     // List  of cover
     public List<Cover> cover;
 
+
+
     // Current tick amount
     public int tick = 0;
 
@@ -79,6 +81,27 @@ public class World : MonoBehaviour
         tick++;
         ChooseActions();
         ExecuteActions();
+    }
+
+
+    public Agent GetNearestTeamMateTo(Agent agent)
+    {
+        Agent result = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Agent possible in agents)
+        {
+            if (possible.team != agent.team) continue; // skip enemies of same team
+            if (possible.health <= 0) continue; // ignore dead agents
+
+            if ((possible.transform.position - agent.transform.position).magnitude < closestDistance)
+            {
+                result = possible;
+                closestDistance = (possible.transform.position - agent.transform.position).magnitude;
+            }
+        }
+
+        return result;
     }
 
 

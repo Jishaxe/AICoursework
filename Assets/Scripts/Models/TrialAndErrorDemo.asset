@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9094543166701447938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabc95db18d591f459f86c238ac1b143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8769068115079829818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d7c4c7cc3eb0345b7b4d3781d380d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8575784459507038070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9476a502b543075468e1206e677eb627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8201488817563143123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabc95db18d591f459f86c238ac1b143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8097823309027124523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4183bd4b693c15478d6acc3f46238a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6488650814841878692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5236a055e7b37a64fb5b0077863b2ada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3613382272430848404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4183bd4b693c15478d6acc3f46238a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae6d4ffbfdf5fc4abc5ac21238ebf62, type: 3}
+  m_Name: TrialAndErrorDemo
+  m_EditorClassIdentifier: 
+  actions:
+  - action: {fileID: 4710734613405378068}
+    scorers:
+    - scorer: {fileID: -3613382272430848404}
+      multiplier: -1
+      negate: 0
+      zeroWhenNegative: 0
+      zeroWhenPositive: 0
+      disregardWhenNegative: 0
+      disregardWhenPositive: 0
+    - scorer: {fileID: -9094543166701447938}
+      multiplier: -1
+      negate: 0
+      zeroWhenNegative: 0
+      zeroWhenPositive: 0
+      disregardWhenNegative: 0
+      disregardWhenPositive: 0
+  - action: {fileID: -8575784459507038070}
+    scorers:
+    - scorer: {fileID: -8097823309027124523}
+      multiplier: 1
+      negate: 0
+      zeroWhenNegative: 0
+      zeroWhenPositive: 0
+      disregardWhenNegative: 0
+      disregardWhenPositive: 0
+  - action: {fileID: 5077896596913368640}
+    scorers:
+    - scorer: {fileID: -8201488817563143123}
+      multiplier: 1
+      negate: 0
+      zeroWhenNegative: 0
+      zeroWhenPositive: 0
+      disregardWhenNegative: 0
+      disregardWhenPositive: 0
+  - action: {fileID: -8769068115079829818}
+    scorers:
+    - scorer: {fileID: -6488650814841878692}
+      multiplier: 1
+      negate: 0
+      zeroWhenNegative: 0
+      zeroWhenPositive: 0
+      disregardWhenNegative: 0
+      disregardWhenPositive: 0
+--- !u!114 &4710734613405378068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8e9b6f51e8f704f838efca4ac23109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5077896596913368640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f29540ec8a250458221baf67786581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

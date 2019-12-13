@@ -13,10 +13,5 @@ namespace Assets.Scripts.Actions
 
             if (!agent.hasFlag) agent.MoveInDirection(world, direction, t);
         }
-
-        public override string ToString()
-        {
-            return "MoveTowardsAndGetFlag";
-        }
     }
 }

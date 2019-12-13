@@ -16,6 +16,8 @@ public class ScorerAndTransformer
     public bool negate = false;
     public bool zeroWhenNegative = false;
     public bool zeroWhenPositive = false;
+    public bool disregardWhenNegative = false;
+    public bool disregardWhenPositive = false;
 
     // Evaluate the Scorer then multiply the result by the multiplier
     public float EvaluateAndTransform(Agent agent, World world)
@@ -28,6 +30,9 @@ public class ScorerAndTransformer
        
         if (zeroWhenNegative && result < 0) result = 0;
         if (zeroWhenPositive && result > 0) result = 0;
+
+        if (disregardWhenNegative && result <= 0) result = -100;
+        if (disregardWhenPositive && result > 0) result = -100;
         return result;
     }
 }
@@ -82,6 +87,8 @@ public class EvaluatedActionWithScore
 [CreateAssetMenu(fileName = "New UtilityAIModel", menuName = "Utility AI Model")]
 public class UtilityAIModel : ScriptableObject
 {
+    public static int oscilliationScore = 1;
+
     public static Type[] actionTypes =
     {
         typeof(DoNothing),
@@ -89,7 +96,9 @@ public class UtilityAIModel : ScriptableObject
         typeof(ReturnFlagToBase),
         typeof(ShootAtNearestEnemy),
         typeof(GetToCover),
-        typeof(Reload)
+        typeof(Reload),
+        typeof(MoveAwayFromNearestEnemy),
+        typeof(MoveAwayFromNearestTeamMate)
     };
 
     public static Type[] scorerTypes =
@@ -98,19 +107,26 @@ public class UtilityAIModel : ScriptableObject
         typeof(DistanceToFlag),
         typeof(HasAmmo),
         typeof(IsInCover),
-        typeof(AmmoLeft)
+        typeof(AmmoLeft),
+        typeof(IsBeingFiredAt),
+        typeof(DistanceToNearestEnemy),
+        typeof(EnemyHasFlag),
+        typeof(TeamMateHasFlag),
+        typeof(DistanceToNearestCover),
+        typeof(DistanceToNearestTeamMate)
     };
 
 
     public List<ActionAndScorers> actions = new List<ActionAndScorers>();
 
-    public EvaluatedActionWithScore[] EvaluateActions(Agent agent, World world)
+    public EvaluatedActionWithScore[] EvaluateActions(Agent agent, World world, string lastAction)
     {
         List<EvaluatedActionWithScore> result = new List<EvaluatedActionWithScore>();
 
         foreach (ActionAndScorers action in actions)
         {
             EvaluatedActionWithScore evaled = action.Evaluate(agent, world);
+            if (evaled.action.GetType().Name == lastAction) evaled.score += oscilliationScore;
             result.Add(evaled);
         }
 

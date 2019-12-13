@@ -8,10 +8,5 @@ namespace Assets.Scripts.Actions
         {
             agent.Reload();
         }
-
-        public override string ToString()
-        {
-            return "Reload";
-        }
     }
 }

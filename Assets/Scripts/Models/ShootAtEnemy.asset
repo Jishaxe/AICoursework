@@ -30,6 +30,8 @@ MonoBehaviour:
     - scorer: {fileID: -3374734539677813627}
       multiplier: -1
       negate: 0
+      zeroWhenNegative: 0
+      zeroWhenPositive: 0
 --- !u!114 &3605515032630366497
 MonoBehaviour:
   m_ObjectHideFlags: 0

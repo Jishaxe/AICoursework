@@ -17,10 +17,5 @@ namespace Assets.Scripts.Actions
 
             //world.StartCoroutine(MoveInDirection(agent, direction, t));
         }
-
-        public override string ToString()
-        {
-            return "MoveTowards " + target.ToString();
-        }
     }
 }
