@@ -12,18 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd5f7662e35d274f80ced578a8efda3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-7850759636120297758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cabc95db18d591f459f86c238ac1b143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-7382030750447645965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,11 +198,11 @@ MonoBehaviour:
       disregardWhenPositive: 0
     - scorer: {fileID: 4853924901668629120}
       multiplier: 1
-      negate: 1
+      negate: 0
       zeroWhenNegative: 0
       zeroWhenPositive: 0
       disregardWhenNegative: 0
-      disregardWhenPositive: 0
+      disregardWhenPositive: 1
     - scorer: {fileID: -265935746173731114}
       multiplier: -1
       negate: 0
@@ -294,13 +282,6 @@ MonoBehaviour:
       disregardWhenNegative: 0
       disregardWhenPositive: 0
     - scorer: {fileID: -5641059333466412362}
-      multiplier: 1
-      negate: 0
-      zeroWhenNegative: 1
-      zeroWhenPositive: 0
-      disregardWhenNegative: 0
-      disregardWhenPositive: 0
-    - scorer: {fileID: -7850759636120297758}
       multiplier: 1
       negate: 0
       zeroWhenNegative: 1

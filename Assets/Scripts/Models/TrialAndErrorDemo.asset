@@ -134,8 +134,8 @@ MonoBehaviour:
   - action: {fileID: -8769068115079829818}
     scorers:
     - scorer: {fileID: -6488650814841878692}
-      multiplier: 1
-      negate: 0
+      multiplier: 2
+      negate: 1
       zeroWhenNegative: 0
       zeroWhenPositive: 0
       disregardWhenNegative: 0

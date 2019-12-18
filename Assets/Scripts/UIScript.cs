@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AgentSelector))]
@@ -74,6 +75,11 @@ public class UIScript : MonoBehaviour
             playPauseText.text = "Play";
             world.playing = false;
         }
+    }
+
+    public void RestartButtonClicked()
+    {
+        SceneManager.LoadScene("Main");
     }
 
     // Update is called once per frame
